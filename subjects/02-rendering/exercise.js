@@ -19,24 +19,32 @@ var React = require('react');
 var sortBy = require('sort-by');
 
 var DATA = {
-  title: 'Menu',
-  items: [
-    { id: 1, name: 'tacos', type: 'mexican' },
-    { id: 2, name: 'burrito', type: 'mexican' },
-    { id: 3, name: 'tostada', type: 'mexican' },
-    { id: 4, name: 'hush puppies', type: 'southern' }
-  ]
+    title: 'Menu',
+    items: [
+        {id: 1, name: 'tacos', type: 'mexican'},
+        {id: 2, name: 'burrito', type: 'mexican'},
+        {id: 3, name: 'tostada', type: 'mexican'},
+        {id: 4, name: 'hush puppies', type: 'southern'}
+    ]
 };
 
-function render () {
-  return (
-    <div>
-      Open the console, you have failing tests
-    </div>
-  );
+function render() {
+    var filtered = DATA.items.filter(function (item) {
+        return item.type === 'mexican'
+    });
+
+    var sortBy = require('sort-by'), tacos = filtered;
+    tacos.sort(sortBy('name'));
+
+    return (
+        <div>
+            <h1>{DATA.title}</h1>
+            <ul>{tacos.map(taco => (<li>{taco.name}</li>))}</ul>
+        </div>
+    );
 }
 
 React.render(render(), document.getElementById('app'), () => {
-  require('./tests').run();
+    require('./tests').run();
 });
 
